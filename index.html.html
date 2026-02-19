@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>C4P – Centre for Planning, Policy, Programme & Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:     #0A3D5C;
+      --teal:     #0B4F6C;
+      --coral:    #E8937A;
+      --cream:    #F5F5F0;
+      --white:    #FFFFFF;
+      --text:     #1A1A1A;
+      --gold:     #D4AF37;
+
+      --ff-heading: 'Cinzel', serif;
+      --ff-body:    'Montserrat', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-body); background: var(--cream); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+    
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--coral); border-radius: 4px; }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(10,61,92,0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 5%;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+    .nav-container {
+      max-width: 1400px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 60px; width: auto;
+      background: white; padding: 5px; border-radius: 8px;
+    }
+    .nav-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .nav-brand-text .brand-name {
+      font-family: var(--ff-heading);
+      font-size: 1.4rem;
+      color: white;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .nav-brand-text .brand-tagline {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 400;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      color: white; text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--coral); }
+    .nav-cta {
+      background: var(--coral);
+      color: white;
+      padding: 0.7rem 1.8rem;
+      border-radius: 4px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .nav-cta:hover { background: #d67d60; }
+
+    /* HERO */
+    #hero {
+      background: var(--navy);
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 0%, rgba(11,79,108,0.5) 100%);
+    }
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-content h1 {
+      font-family: var(--ff-heading);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      color: white;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 .highlight {
+      color: var(--coral);
+      font-weight: 600;
+    }
+    .hero-content p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+    .hero-actions {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--coral);
+      color: white;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 4px;
+      font-family: var(--ff-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(232,147,122,0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      padding: 1rem 2.5rem;
+      border: 2px solid white;
+      border-radius: 4px;
+      font-family: var(--ff-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-outline:hover {
+      background: white;
+      color: var(--navy);
+    }
+    .hero-image {
+      position: relative;
+    }
+    .hero-image img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    /* SECTION STYLES */
+    section { padding: 6rem 5%; }
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-tag {
+      color: var(--coral);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      display: block;
+      text-align: center;
+    }
+    .section-title {
+      font-family: var(--ff-heading);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--navy);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ABOUT */
+    #about { background: white; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-content h3 {
+      font-family: var(--ff-heading);
+      font-size: 1.8rem;
+      color: var(--coral);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .about-content p {
+      color: #555;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+    .about-content ul {
+      list-style: none;
+      padding: 0;
+    }
+    .about-content ul li {
+      padding: 0.8rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: #555;
+    }
+    .about-content ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-weight: bold;
+    }
+
+    /* WHY C4P */
+    #why { background: var(--teal); color: white; }
+    #why .section-title { color: white; }
+    #why .section-subtitle { color: rgba(255,255,255,0.85); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .why-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+    .why-card h4 {
+      font-family: var(--ff-heading);
+      font-size: 1.2rem;
+      color: var(--coral);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .why-card p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* SERVICES */
+    #services { background: var(--cream); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--coral);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+    .service-card h3 {
+      font-family: var(--ff-heading);
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .service-card p {
+      color: #666;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* APPROACH */
+    #approach { background: white; }
+    .approach-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .approach-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .step {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 50px;
+      height: 50px;
+      background: var(--coral);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-heading);
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .step-content h4 {
+      font-family: var(--ff-heading);
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .step-content p {
+      color: #666;
+      line-height: 1.7;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--navy);
+      color: white;
+    }
+    #contact .section-title { color: white; }
+    #contact .section-subtitle { color: rgba(255,255,255,0.85); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 5rem;
+      margin-top: 3rem;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--coral);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.2rem;
+    }
+    .contact-item-content h4 {
+      font-family: var(--ff-heading);
+      font-size: 1rem;
+      color: var(--coral);
+      margin-bottom: 0.3rem;
+    }
+    .contact-item-content p,
+    .contact-item-content a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .contact-item-content a:hover {
+      color: var(--coral);
+    }
+    .contact-form {
+      background: rgba(255,255,255,0.05);
+      padding: 3rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .form-group label {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 0.9rem;
+      color: white;
+      font-family: var(--ff-body);
+      font-size: 0.95rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--coral);
+      background: rgba(255,255,255,0.15);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+    .form-group select option {
+      background: var(--navy);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--teal);
+      color: rgba(255,255,255,0.85);
+      padding: 4rem 5% 2rem;
+    }
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand img {
+      height: 70px;
+      width: auto;
+      background: white;
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-brand h4 {
+      font-family: var(--ff-heading);
+      color: white;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .footer-brand .tagline {
+      font-size: 0.75rem;
+      color: var(--coral);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .footer-brand p {
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .footer-col h5 {
+      font-family: var(--ff-heading);
+      color: var(--coral);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col ul li a:hover {
+      color: var(--coral);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .footer-bottom span {
+      color: var(--coral);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .about-grid,
+      .approach-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .services-grid,
+      .why-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <img src="logo.jpg" alt="C4P Logo">
+        <div class="nav-brand-text">
+          <span class="brand-name">C4P</span>
+          <span class="brand-tagline">Planning | Policy | Programmes | Projects</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#why">Why C4P</a></li>
+        <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>
+          <span class="highlight">Empowering</span> Organizations Through Strategic Planning and <span class="highlight">Expert Execution</span>
+        </h1>
+        <p>
+          Centre for Planning, Policy, Programme, and Projects (C4P) is a trusted consultancy firm dedicated to helping organizations achieve their goals through customized, high-quality policy, program, and project solutions.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-primary">Explore Our Services</a>
+          <a href="#contact" class="btn-outline">Let's Collaborate</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="5.jpg" alt="C4P Overview" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-container">
+      <div class="about-grid">
+        <div class="about-content">
+          <div class="section-tag">Who We Are</div>
+          <h3>Centre for Planning, Policy, Programme, and Projects (C4P)</h3>
+          <p>
+            C4P is a trusted consultancy firm dedicated to helping organizations achieve their goals through customized, high-quality policy, program, and project solutions.
+          </p>
+          <p>
+            With decades of experience and a proven track record, we empower our clients to navigate critical challenges, deliver impactful results, and contribute to societal progress.
+          </p>
+          <ul>
+            <li>We design tailored policies, projects and programs from feasibility studies to implementation</li>
+            <li>Ensuring compliance to local regulatory requirements</li>
+            <li>Partnering with both public and private sector organizations</li>
+            <li>Multidisciplinary team with deep expertise</li>
+          </ul>
+        </div>
+        <div>
+          <img src="8.jpg" alt="Our Services" style="width:100%; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY C4P -->
+  <section id="why">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag">Why Choose C4P?</div>
+        <h2 class="section-title">Dedicated to Delivering Success</h2>
+        <p class="section-subtitle">
+          Our commitment to excellence drives everything we do
+        </p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <h4>Experienced Team</h4>
+          <p>Decades of combined experience across planning, policy, programme management, and project delivery.</p>
+        </div>
+        <div class="why-card">
+          <h4>Tailored Solutions</h4>
+          <p>We design bespoke frameworks that reflect your unique context and objectives.</p>
+        </div>
+        <div class="why-card">
+          <h4>Impact-Driven</h4>
+          <p>We measure success by real-world outcomes and societal contributions.</p>
+        </div>
+        <div class="why-card">
+          <h4>End-to-End Support</h4>
+          <p>From initial problem scoping to implementation, monitoring and evaluation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag">Our Services</div>
+        <h2 class="section-title">Comprehensive Consultancy Services</h2>
+        <p class="section-subtitle">
+          End-to-end solutions that guide your organization from conception to completion
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Policy Development & Analysis</h3>
+          <p>We craft evidence-based policy frameworks that address your organization's most pressing challenges, ensuring alignment with regulatory standards.</p>
+        </div>
+        <div class="service-card">
+          <h3>Program & Project Design</h3>
+          <p>From feasibility studies to full implementation plans, we design structured programmes tailored to your goals and resources.</p>
+        </div>
+        <div class="service-card">
+          <h3>Monitoring & Evaluation</h3>
+          <p>Formative, process, and summative evaluations that deliver actionable insights to improve outcomes and demonstrate impact.</p>
+        </div>
+        <div class="service-card">
+          <h3>Government Advisory</h3>
+          <p>Strategic guidance in public sector governance, helping agencies design and implement policies that serve the public good.</p>
+        </div>
+        <div class="service-card">
+          <h3>Training & Capacity Building</h3>
+          <p>Developing skills and capabilities for both public and private sector teams, building institutional resilience.</p>
+        </div>
+        <div class="service-card">
+          <h3>Organizational Change Management</h3>
+          <p>Seamless transitions for sustained success with minimal disruption and maximum stakeholder buy-in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag">Our Approach</div>
+        <h2 class="section-title">How We Drive Results</h2>
+      </div>
+      <div class="approach-grid">
+        <div class="approach-steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Engaging Stakeholders</h4>
+              <p>We bring together all relevant voices to build shared understanding and commitment for lasting solutions.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>Expert Insights</h4>
+              <p>Our team combines sector-specific knowledge with analytical expertise for technically sound, practical advice.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Data-Driven Solutions</h4>
+              <p>Every recommendation is backed by rigorous quantitative and qualitative analysis.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h4>End-to-End Support</h4>
+              <p>We walk the entire journey with you, ensuring continuous improvement at every stage.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <img src="9.jpeg" alt="Project Management" style="width:70%; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag">Get in Touch</div>
+        <h2 class="section-title">Let's Collaborate for Your Success</h2>
+        <p class="section-subtitle">
+          Ready to navigate your organization's next challenge? Reach out today.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-item-content">
+              <h4>Website</h4>
+              <a href="http://www.c4p.com.ng" target="_blank">www.c4p.com.ng</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-item-content">
+              <h4>Email</h4>
+              <a href="/cdn-cgi/l/email-protection#17747879637674635774236774787964627b637679746e3974787a"><span class="__cf_email__" data-cfemail="73101c1d0712100733104703101c1d00061f07121d100a5d101c1e">[email&#160;protected]</span></a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-item-content">
+              <h4>Phone</h4>
+              <a href="tel:+2348034112991">+234 803 411 2991</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-item-content">
+              <h4>Address</h4>
+              <p>C4P Analytiks, 22 Globex Plaza,<br>Aminu Kano Crescent, Wuse II,<br>Abuja, Nigeria</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Your name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="org">Organization</label>
+                <input type="text" id="org" placeholder="Your organization">
+              </div>
+              <div class="form-group">
+                <label for="service">Service</label>
+                <select id="service">
+                  <option value="">Select a service</option>
+                  <option>Policy Development & Analysis</option>
+                  <option>Program & Project Design</option>
+                  <option>Monitoring & Evaluation</option>
+                  <option>Government Advisory</option>
+                  <option>Training & Capacity Building</option>
+                  <option>Change Management</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" placeholder="Tell us about your project..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="margin-top:1rem">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="logo.jpg" alt="C4P Logo">
+          <h4>C4P</h4>
+          <div class="tagline">Planning | Policy | Programmes | Projects</div>
+          <p>Centre for Planning, Policy, Programme, and Projects — empowering organizations through strategic planning and execution.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Policy Development</a></li>
+            <li><a href="#services">Program Design</a></li>
+            <li><a href="#services">M&E</a></li>
+            <li><a href="#services">Advisory</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#why">Why C4P</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="http://www.c4p.com.ng" target="_blank">Website</a></li>
+            <li><a href="/cdn-cgi/l/email-protection#7d1e1213091c1e093d1e490d1e12130e0811091c131e04531e1210">Email</a></li>
+            <li><a href="tel:+2348034112991">Phone</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 <span>C4P Consultancy</span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.queryS
