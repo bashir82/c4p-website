@@ -3,6 +3,8 @@
 ## 🌐 Live Website
 Visit the live website:https://bashir82.github.io/c4p-website/
 
+SOURCE CODE: https://github.com/bashir82/c4p-website
+
 ## Project Details
 - **Course:** Diploma in Applied Artificial Intelligence
 - **Program:** BAZE IDEAS Program
